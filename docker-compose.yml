@@ -1,0 +1,100 @@
+---
+version: '2'
+services:
+  couchpotato:
+    image: "linuxserver/couchpotato:latest"
+    container_name: couchpotato
+    depends_on:
+      - deluge
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - ":/config"
+      - ":/downloads"
+      - ":/movies"
+    ports:
+      - "5050:5050"
+    links:
+      - deluge
+    restart: always
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+  sickrage:
+    image: "linuxserver/sickrage:latest"
+    container_name: sickrage
+    depends_on:
+      - deluge
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - ":/config"
+      - ":/downloads"
+      - ":/tv"
+    ports:
+      - "8081:8081"
+    links:
+      - deluge
+    restart: always
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+  deluge:
+    image: "linuxserver/deluge:latest"
+    container_name: deluge
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - ":/config"
+      - ":/downloads"
+    network_mode: host
+    restart: always
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+  plex:
+    image: "linuxserver/plex:latest"
+    container_name: plex
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - ":/config"
+      - ":/transcode"
+      - ":/data/tvshows"
+      - ":/data/movies"
+    network_mode: host
+    restart: always
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      VERSION: plexpass
+  plexpy:
+    image: "linuxserver/plexpy:latest"
+    container_name: plexpy
+    depends_on:
+      - plex
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - ":/config"
+      - ":/logs:ro"
+    ports:
+      - "8181:8181"
+    links:
+      - plex
+    restart: always
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+  plexrequests:
+    image: "lsiodev/plexrequests:latest"
+    container_name: requests
+    depends_on:
+      - plex
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - ":/config"
+    ports:
+      - "3000:3000"
+    links:
+      - plex
+    restart: always
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      URL_BASE: /request
