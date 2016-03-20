@@ -8,9 +8,9 @@ services:
       - deluge
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - ":/config"
-      - ":/downloads"
-      - ":/movies"
+      - "/opt/appdata/couchpotato:/config"
+      - "/opt/downloads:/downloads"
+      - "/mnt/storage/movies:/movies"
     ports:
       - "5050:5050"
     links:
@@ -26,9 +26,9 @@ services:
       - deluge
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - ":/config"
-      - ":/downloads"
-      - ":/tv"
+      - "/opt/appdata/sickrage:/config"
+      - "/opt/downloads:/downloads"
+      - "/mnt/storage/shows:/tv"
     ports:
       - "8081:8081"
     links:
@@ -42,8 +42,8 @@ services:
     container_name: deluge
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - ":/config"
-      - ":/downloads"
+      - "/opt/appdata/deluge:/config"
+      - "/opt/downloads:/downloads"
     network_mode: host
     restart: always
     environment:
@@ -54,10 +54,9 @@ services:
     container_name: plex
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - ":/config"
-      - ":/transcode"
-      - ":/data/tvshows"
-      - ":/data/movies"
+      - "/opt/appdata/plex:/config"
+      - "/opt/transcode:/transcode"
+      - "/mnt/storage:/data"
     network_mode: host
     restart: always
     environment:
@@ -71,8 +70,8 @@ services:
       - plex
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - ":/config"
-      - ":/logs:ro"
+      - "/opt/appdata/plexpy:/config"
+      - "/opt/appdata/plex/Library/Application\ Support/Plex\ Media\ Server/Logs:/logs:ro"
     ports:
       - "8181:8181"
     links:
@@ -88,7 +87,8 @@ services:
       - plex
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - ":/config"
+      - "/opt/appdata/plexrequests:/config"
+      - "/mnt/storage:/data"
     ports:
       - "3000:3000"
     links:
