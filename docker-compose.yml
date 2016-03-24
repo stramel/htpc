@@ -84,7 +84,9 @@ services:
     image: "lsiodev/plexrequests:latest"
     container_name: requests
     depends_on:
+      - couchpotato
       - plex
+      - sickrage
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/appdata/plexrequests:/config"
@@ -92,9 +94,11 @@ services:
     ports:
       - "3000:3000"
     links:
+      - couchpotato
       - plex
+      - sickrage
     restart: always
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
-      URL_BASE: /request
+      URL_BASE: /

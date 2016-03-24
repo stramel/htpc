@@ -64,6 +64,9 @@ https://github.com/trapexit/backup-and-recovery-howtos/
 
 ### Docker Tasks
 
+https://gist.github.com/wdullaer/f1af16bd7e970389bad3
+docker-compose > 1.4.0
+
 - Update System
   - `$ sudo apt-get update`
   - `$ sudo apt-get upgrade`
