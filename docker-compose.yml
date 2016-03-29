@@ -9,7 +9,7 @@ services:
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/appdata/couchpotato:/config"
-      - "/opt/downloads:/downloads"
+      - "/mnt/storage/downloads:/downloads"
       - "/mnt/storage/movies:/movies"
     ports:
       - "5050:5050"
@@ -27,7 +27,7 @@ services:
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/appdata/sickrage:/config"
-      - "/opt/downloads:/downloads"
+      - "/mnt/storage/downloads:/downloads"
       - "/mnt/storage/shows:/tv"
     ports:
       - "8081:8081"
@@ -43,7 +43,7 @@ services:
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/appdata/deluge:/config"
-      - "/opt/downloads:/downloads"
+      - "/mnt/storage/downloads:/downloads"
     network_mode: host
     restart: always
     environment:
