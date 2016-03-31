@@ -25,6 +25,7 @@ https://github.com/trapexit/backup-and-recovery-howtos/
 - Add to fstab **USE CAUTION WITH THIS STEP**
   - `$ sudo blkid`
   - `$ sudo vim /etc/fstab`
+
     ```
     # <file system>  <mount point>      <type>  <options>                              <dump>  <pass>
     /dev/sdb         /mnt/parity0        auto    defaults,nobootwait,errors=remount-ro  0       2
