@@ -73,6 +73,9 @@ services:
       - /opt/transcode:/transcode
       - /mnt/storage/shows:/data/tvshows
       - /mnt/storage/movies:/data/movies
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
   plexrequests:
     image: "lsiodev/plexrequests:latest"
     container_name: requests
