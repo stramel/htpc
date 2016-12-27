@@ -15,7 +15,7 @@ services:
       - "5050:5050"
     links:
       - deluge
-    restart: always
+    restart: unless-stopped
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -33,7 +33,7 @@ services:
       - "8081:8081"
     links:
       - deluge
-    restart: always
+    restart: unless-stopped
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -45,41 +45,34 @@ services:
       - "/opt/appdata/deluge:/config"
       - "/mnt/storage/downloads:/downloads"
     network_mode: host
-    restart: always
+    restart: unless-stopped
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
   plex:
-    image: "linuxserver/plex:latest"
     container_name: plex
-    volumes:
-      - "/etc/localtime:/etc/localtime:ro"
-      - "/opt/appdata/plex:/config"
-      - "/opt/transcode:/transcode"
-      - "/mnt/storage:/data"
-    network_mode: host
-    restart: always
-    environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      VERSION: plexpass
-  plexpy:
-    image: "linuxserver/plexpy:latest"
-    container_name: plexpy
-    depends_on:
-      - plex
-    volumes:
-      - "/etc/localtime:/etc/localtime:ro"
-      - "/opt/appdata/plexpy:/config"
-      - "/opt/appdata/plex/Library/Application\ Support/Plex\ Media\ Server/Logs:/logs:ro"
+    image: plexinc/pms-docker
+    restart: unless-stopped
     ports:
-      - "8181:8181"
-    links:
-      - plex
-    restart: always
+      - 32400:32400/tcp
+      - 3005:3005/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
     environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
+      - TZ=America/Chicago
+      - PLEX_CLAIM=<claimToken>
+    hostname: Media
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/appdata/plex:/config
+      - /opt/transcode:/transcode
+      - /mnt/storage/shows:/data/tvshows
+      - /mnt/storage/movies:/data/movies
   plexrequests:
     image: "lsiodev/plexrequests:latest"
     container_name: requests
@@ -97,7 +90,7 @@ services:
       - couchpotato
       - plex
       - sickrage
-    restart: always
+    restart: unless-stopped
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
