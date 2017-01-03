@@ -44,7 +44,7 @@ services:
       - deluge
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - "/opt/appdata/sickrage:/config"
+      - "/opt/appdata/sonarr:/config"
       - "/mnt/storage/downloads:/downloads"
       - "/mnt/storage/shows:/tv"
     ports:
