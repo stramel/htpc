@@ -37,6 +37,24 @@ services:
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
+  sonarr:
+    image: "linuxserver/sonarr:latest"
+    container_name: sonarr
+    depends_on:
+      - deluge
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/appdata/sickrage:/config"
+      - "/mnt/storage/downloads:/downloads"
+      - "/mnt/storage/shows:/tv"
+    ports:
+      - "8989:8989"
+    links:
+      - deluge
+    restart: unless-stopped
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
   deluge:
     image: "linuxserver/deluge:latest"
     container_name: deluge
