@@ -4,8 +4,6 @@ services:
   couchpotato:
     image: "linuxserver/couchpotato:latest"
     container_name: couchpotato
-    depends_on:
-      - deluge
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/appdata/couchpotato:/config"
