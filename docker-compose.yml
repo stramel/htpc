@@ -53,15 +53,32 @@ services:
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
+  openvpn:
+    image: "linuxserver/openvpn-as:latest"
+    container_name: openvpn
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/appdata/openvpn:/config"
+    network_most: host
+    privileged: true
+    restart: unless-stopped
+    environment:
+      TZ: America/Chicago
+      INTERFACE: eth0
+      PUID: ${PUID}
+      PGID: ${PGID}
   deluge:
     image: "linuxserver/deluge:latest"
     container_name: deluge
+    depends_on: deluge
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/appdata/deluge:/config"
       - "/mnt/storage/downloads:/downloads"
     network_mode: host
     restart: unless-stopped
+    links:
+      - openvpn
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
