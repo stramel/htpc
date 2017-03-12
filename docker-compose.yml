@@ -78,8 +78,6 @@ services:
       - "/mnt/storage/downloads:/downloads"
     network_mode: host
     restart: unless-stopped
-    links:
-      - openvpn
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
