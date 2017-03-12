@@ -64,7 +64,7 @@ services:
     restart: unless-stopped
     environment:
       TZ: America/Chicago
-      INTERFACE: eth0
+      INTERFACE: enp1s0
       PUID: ${PUID}
       PGID: ${PGID}
   deluge:
