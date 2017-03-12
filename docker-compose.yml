@@ -59,7 +59,7 @@ services:
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/appdata/openvpn:/config"
-    network_most: host
+    network_mode: host
     privileged: true
     restart: unless-stopped
     environment:
@@ -70,7 +70,8 @@ services:
   deluge:
     image: "linuxserver/deluge:latest"
     container_name: deluge
-    depends_on: deluge
+    depends_on:
+      - openvpn
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/appdata/deluge:/config"
