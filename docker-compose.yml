@@ -52,7 +52,7 @@ services:
       - label:disable
     tty: true
     volumes:
-      - "/opt/appdata/openvpn-c:/dev/net/tun"
+      - "/opt/appdata/openvpn-c:/vpn"
   deluge:
     image: "linuxserver/deluge:latest"
     container_name: deluge
