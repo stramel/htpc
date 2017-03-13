@@ -74,9 +74,9 @@ services:
     image: 
     container_name: nginx
     ports:
-      - "80:80"
+      - "8888:80"
     volumes:
-      - /etc/nginx/conf.d
+      - /opt/appdata/nginx:/etc/nginx
   nginx:
     image: nginx
     container_name: nginx
