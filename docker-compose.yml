@@ -1,5 +1,5 @@
 ---
-version: '2.1'
+version: '2'
 services:
   couchpotato:
     image: "linuxserver/couchpotato:latest"
@@ -97,10 +97,6 @@ services:
       - "80:80"
       - "443:443"
     read_only: true
-    tmpfs:
-      - /run
-      - /tmp
-      - /var/cache/nginx
     restart: unless-stopped
     stdin_open: true
     tty: true
