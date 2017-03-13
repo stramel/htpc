@@ -85,7 +85,7 @@ services:
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
-   proxy:
+  proxy:
     image: dperson/nginx
     depends_on:
       - deluge
