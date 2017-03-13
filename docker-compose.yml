@@ -88,7 +88,7 @@ services:
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /opt/appdata/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /opt/appdata/nginx/conf.d/deluge.conf:/etc/nginx/conf.d/deluge.conf
   plex:
     container_name: plex
     image: plexinc/pms-docker
