@@ -53,18 +53,58 @@ services:
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
+  vpn:
+    image: dperson/openvpn-client
+    cap_add:
+      - net_admin
+  #  dns:
+  #    - 8.8.4.4
+  #    - 8.8.8.8
+    environment:
+      TZ: America/Chicago
+      PUID: ${PUID}
+      PGID: ${PGID}
+    read_only: true
+    restart: unless-stopped
+    security_opt:
+      - label:disable
+    tty: true
+    volumes:
+      - "/opt/appdata/openvpn-c:/opt/appdata/openvpn-c"
   deluge:
     image: "linuxserver/deluge:latest"
     container_name: deluge
+    depends_on:
+      - vpn
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/appdata/deluge:/config"
       - "/mnt/storage/downloads:/downloads"
-    network_mode: host
+    network_mode: "service:vpn"
     restart: unless-stopped
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
+   proxy:
+    image: dperson/nginx
+    depends_on:
+      - deluge
+    environment:
+      TZ: America/Chicago
+    links:
+      - vpn:deluge
+    ports:
+      - "80:80"
+      - "443:443"
+    read_only: true
+    tmpfs:
+      - /run
+      - /tmp
+      - /var/cache/nginx
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    command: -w "http://deluge:8112;/deluge"
   plex:
     container_name: plex
     image: plexinc/pms-docker
