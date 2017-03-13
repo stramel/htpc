@@ -53,6 +53,8 @@ services:
     tty: true
     tmpfs:
       - /tmp
+    ports:
+     - 8112:8112
     volumes:
       - /dev/net:/dev/net:z
       - /opt/appdata/openvpn:/vpn
@@ -66,8 +68,6 @@ services:
       - "/opt/appdata/deluge:/config"
       - "/mnt/storage/downloads:/downloads"
     network_mode: "service:vpn"
-    ports:
-     - 8112:8112
     restart: unless-stopped
     environment:
       PUID: ${PUID}
