@@ -66,27 +66,12 @@ services:
       - "/opt/appdata/deluge:/config"
       - "/mnt/storage/downloads:/downloads"
     network_mode: "service:vpn"
-    restart: unless-stopped
-    environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-  nginx:
-    image: nginx
-    container_name: nginx
-    depends_on:
-      - deluge
-    environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      TZ: America/Chicago
-    links:
-      - vpn:deluge
     ports:
-      - "8888:80"
+     - 8112:8112
     restart: unless-stopped
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /opt/appdata/nginx/conf.d/deluge.conf:/etc/nginx/conf.d/deluge.conf
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
   plex:
     container_name: plex
     image: plexinc/pms-docker
