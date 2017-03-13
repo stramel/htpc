@@ -54,7 +54,8 @@ services:
     tmpfs:
       - /tmp
     volumes:
-      - "/opt/appdata/openvpn-c:/vpn"
+      - /dev/net:/dev/net:z
+      - /opt/appdata/openvpn:/vpn
   deluge:
     image: "linuxserver/deluge:latest"
     container_name: deluge
