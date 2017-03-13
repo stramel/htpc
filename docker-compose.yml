@@ -53,8 +53,6 @@ services:
     tty: true
     tmpfs:
       - /tmp
-    ports:
-     - 8112:8112
     volumes:
       - /dev/net:/dev/net:z
       - /opt/appdata/openvpn:/vpn
@@ -84,7 +82,7 @@ services:
     links:
       - vpn:deluge
     ports:
-     - "8888:80"
+     - "8112:8112"
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
