@@ -1,5 +1,5 @@
 ---
-version: '2'
+version: '2.1'
 services:
   couchpotato:
     image: "linuxserver/couchpotato:latest"
