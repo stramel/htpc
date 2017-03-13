@@ -79,6 +79,10 @@ services:
       - "80:80"
       - "443:443"
     read_only: true
+    tmpfs:
+      - /run
+      - /tmp
+      - /var/cache/nginx
     restart: unless-stopped
     stdin_open: true
     tty: true
