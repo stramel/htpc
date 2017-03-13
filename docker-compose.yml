@@ -70,11 +70,12 @@ services:
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
-      VIRTUAL_HOST: deluge
+      VIRTUAL_HOST: deluge.local
   proxy:
     image: "jwilder/nginx-proxy:latest"
     depends_on:
       - deluge
+      - vpn
     environment:
       TZ: America/Chicago
     links:
