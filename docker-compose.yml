@@ -70,25 +70,31 @@ services:
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
-      VIRTUAL_HOST: deluge.local
-  proxy:
-    image: "jwilder/nginx-proxy:latest"
+  nginx:
+    image: 
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - /etc/nginx/conf.d
+  nginx:
+    image: nginx
+    container_name: nginx
     depends_on:
       - deluge
-      - vpn
     environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
       TZ: America/Chicago
     links:
       - vpn:deluge
     ports:
       - "80:80"
-    tmpfs:
-      - /run
-      - /tmp
-      - /var/cache/nginx
+      - "443:443"
     restart: unless-stopped
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/appdata/nginx:/config
   plex:
     container_name: plex
     image: plexinc/pms-docker
