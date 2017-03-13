@@ -72,6 +72,23 @@ services:
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
+  nginx:
+    image: nginx
+    container_name: nginx
+    depends_on:
+      - deluge
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: America/Chicago
+    links:
+      - vpn:deluge
+    ports:
+     - "8888:80"
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/appdata/nginx/conf.d/deluge.conf:/etc/nginx/conf.d/deluge.conf
   plex:
     container_name: plex
     image: plexinc/pms-docker
