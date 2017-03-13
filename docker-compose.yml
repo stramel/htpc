@@ -84,7 +84,7 @@ services:
     links:
       - vpn:deluge
     ports:
-     - "8112:8112"
+     - "8888:8112"
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
