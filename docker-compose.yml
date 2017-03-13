@@ -71,13 +71,6 @@ services:
       PUID: ${PUID}
       PGID: ${PGID}
   nginx:
-    image: 
-    container_name: nginx
-    ports:
-      - "8888:80"
-    volumes:
-      - /opt/appdata/nginx:/etc/nginx
-  nginx:
     image: nginx
     container_name: nginx
     depends_on:
@@ -89,12 +82,11 @@ services:
     links:
       - vpn:deluge
     ports:
-      - "80:80"
-      - "443:443"
+      - "8888:80"
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /opt/appdata/nginx:/config
+      - /opt/appdata/nginx/conf.d/deluge.conf:/etc/nginx/conf.d/deluge.conf
   plex:
     container_name: plex
     image: plexinc/pms-docker
