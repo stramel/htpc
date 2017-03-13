@@ -53,6 +53,8 @@ services:
     tty: true
     tmpfs:
       - /tmp
+    ports:
+      - 8112:8112
     volumes:
       - /dev/net:/dev/net:z
       - /opt/appdata/openvpn:/vpn
