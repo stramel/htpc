@@ -116,7 +116,7 @@ services:
       PUID: ${PUID}
       PGID: ${PGID}
   plexrequests:
-    image: "lsiodev/plexrequests:latest"
+    image: "linuxserver/plexrequests:latest"
     container_name: requests
     depends_on:
       - couchpotato
