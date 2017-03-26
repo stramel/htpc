@@ -39,8 +39,6 @@ services:
     image: dperson/openvpn-client
     cap_add:
       - net_admin
-    devices:
-      - /dev/net/tun:/dev/net/tun
     dns:
       - 8.8.4.4
       - 8.8.8.8
@@ -58,6 +56,7 @@ services:
     tmpfs:
       - /tmp
     volumes:
+      - /dev/net:/dev/net:z
       - /opt/appdata/openvpn:/vpn
   deluge:
     image: "linuxserver/deluge:latest"
