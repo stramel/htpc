@@ -39,6 +39,8 @@ services:
     image: dperson/openvpn-client
     cap_add:
       - net_admin
+    devices:
+      - /dev/net/tun:/dev/net/tun
     dns:
       - 8.8.4.4
       - 8.8.8.8
@@ -46,17 +48,16 @@ services:
       TZ: America/Chicago
       PUID: ${PUID}
       PGID: ${PGID}
-    network_mode: host
-    #ports:
-    #  - "6891:6891"
-    #  - "6892:6892"
+    #network_mode: host
+    ports:
+      - "6891:6891"
+      - "6892:6892"
     read_only: true
     restart: unless-stopped
     tty: true
     tmpfs:
       - /tmp
     volumes:
-      - /dev/net:/dev/net:z
       - /opt/appdata/openvpn:/vpn
   deluge:
     image: "linuxserver/deluge:latest"
